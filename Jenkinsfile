@@ -32,6 +32,14 @@ pipeline {
             }
         }
 
+        stage('Terraform Destroy') {
+            steps {
+                dir('terraform') {
+                    bat 'terraform destroy -auto-approve || true'
+                }
+            }
+        }
+
         stage('Terraform Apply') {
             steps {
                 dir('terraform') {
