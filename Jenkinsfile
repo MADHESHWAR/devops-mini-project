@@ -19,7 +19,7 @@ pipeline {
             steps {
                 bat '''
                 docker rm -f devops-container || true
-                docker run -d -p 8083:80 --name devops-container devops-app
+                docker run -d -p 8084:80 --name devops-container devops-app
                 '''
             }
         }
