@@ -3,9 +3,9 @@ pipeline {
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/MADHESHWAR/devops-mini-project.git'
+                echo 'Already checked out'
             }
         }
 
