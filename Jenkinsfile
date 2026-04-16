@@ -18,8 +18,8 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 bat '''
-                docker rm -f devops-container || true
-                docker run -d -p 8084:80 --name devops-container devops-app
+                docker rm -f devops-container 2>nul
+                docker run -d -p 8083:80 --name devops-container devops-app
                 '''
             }
         }
@@ -31,15 +31,18 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Terraform Destroy') {
             steps {
                 dir('terraform') {
-                    bat 'terraform destroy -auto-approve || true'
+                    bat '''
+                    docker rm -f terraform-nginx 2>nul
+                    terraform destroy -auto-approve
+                    '''
                 }
             }
         }
-
+        
         stage('Terraform Apply') {
             steps {
                 dir('terraform') {
